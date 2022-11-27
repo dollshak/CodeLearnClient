@@ -20,6 +20,7 @@ const LoginPage = () => {
 
   const handleChange = (event) => {
     const value = event.target.value;
+    console.log(event);
     setUserDetails({
       ...userDetails,
       [event.target.name]: value,

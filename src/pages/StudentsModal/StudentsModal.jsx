@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 
-export const StudentsModal = ({ open, onClose }) => {
+export const StudentsModal = ({ open, onClose, codeBlock }) => {
   const [students, setStudents] = React.useState([]);
   // const students = [{username: 'dollshak', password: '123', role: ''},
   // {username: 'peleg', password: '2', role: ''},
@@ -23,10 +23,24 @@ export const StudentsModal = ({ open, onClose }) => {
   // }
 
   const onStudentClick = (student) => {
-    console.log(student.username);
+    console.log(codeBlock);
+    console.log(student);
     setStudentLink(student.username);
     setShowMessage(true);
-    setChosenStudent(student);
+    setChosenStudent((student) => ({
+      ...student,
+      username: student.username,
+    }));
+    setChosenStudent((student) => ({
+      ...student,
+      password: student.password,
+    }));
+    setChosenStudent((student) => ({
+      ...student,
+      role: student.role,
+    }));
+
+    alert(chosenStudent.username);
   };
 
   const onCloseModal = () => {
@@ -55,7 +69,7 @@ export const StudentsModal = ({ open, onClose }) => {
         <div className="links">
           {showMessage && <p>{studentLink}</p>}
           {showMessage && <p>{mentorLink}</p>}
-          {showMessage && <p>{chosenStudent}</p>}
+          {/* {showMessage && <p>{chosenStudent}</p>} */}
         </div>
 
         <div className="students_list">

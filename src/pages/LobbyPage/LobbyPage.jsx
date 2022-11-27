@@ -45,7 +45,11 @@ const LobbyPage = () => {
             {codeBlock.title}
           </button>
         ))}
-        <StudentsModal open={openModal} onClose={() => setOpenModal(false)} />
+        <StudentsModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          codeBlock={chosenCodeBlock}
+        />
       </div>
     </div>
   );

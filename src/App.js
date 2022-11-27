@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import LobbyPage from './pages/LobbyPage/LobbyPage';
 import CodeBlockPage from './pages/CodeBlockPage/CodeBlockPage';
-import DataFetching from './pages/DataFetching/DataFetching';
 
 
 function App() {
@@ -20,8 +19,10 @@ function App() {
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/" />
           <Route path="/lobby" element={<LobbyPage/>}/>
+          <Route path="/codeBlock:uuid:student_login" element={<CodeBlockPage/>}/>
           <Route path="/codeBlock" element={<CodeBlockPage/>}/>
-          <Route path="/Data" element={<DataFetching/>}/>
+
+
 
         </Routes >
     

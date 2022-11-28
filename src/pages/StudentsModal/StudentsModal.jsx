@@ -22,25 +22,39 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
   //     console.log(chosenStudent)
   // }
 
+  const createSession = () => {
+    return {
+      uuid: 5,
+    };
+  };
+
   const onStudentClick = (student) => {
     console.log(codeBlock);
     console.log(student);
-    setStudentLink(student.username);
-    setShowMessage(true);
-    setChosenStudent((student) => ({
-      ...student,
-      username: student.username,
-    }));
-    setChosenStudent((student) => ({
-      ...student,
-      password: student.password,
-    }));
-    setChosenStudent((student) => ({
-      ...student,
-      role: student.role,
-    }));
+    // setStudentLink(student.username);
+    // setChosenStudent((student) => ({
+    //   ...student,
+    //   username: student.username,
+    // }));
+    // setChosenStudent((student) => ({
+    //   ...student,
+    //   password: student.password,
+    // }));
+    // setChosenStudent((student) => ({
+    //   ...student,
+    //   role: student.role,
+    // }));
 
-    alert(chosenStudent.username);
+    const session = createSession();
+
+    setMentorLink(
+      "/codeBlock?uuid=".concat(session.uuid).concat("&student_login=false")
+    );
+    setStudentLink(
+      "/codeBlock?uuid=".concat(session.uuid).concat("&student_login=true")
+    );
+
+    setShowMessage(true);
   };
 
   const onCloseModal = () => {
@@ -67,8 +81,8 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
         <h1>Choose a Student</h1>
 
         <div className="links">
-          {showMessage && <p>{studentLink}</p>}
-          {showMessage && <p>{mentorLink}</p>}
+          {showMessage && <a href={studentLink}>student's link</a>}
+          {showMessage && <a href={mentorLink}>mentor's link</a>}
           {/* {showMessage && <p>{chosenStudent}</p>} */}
         </div>
 

@@ -14,4 +14,10 @@
     z-index: 2;
 }
 
+.links{
+    display: flex;
+    background-color: rgb(255, 187, 187);
+    flex-direction: column;
+}
+
 

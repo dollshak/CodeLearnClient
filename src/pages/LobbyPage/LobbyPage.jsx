@@ -3,9 +3,6 @@ import { StudentsModal } from "../StudentsModal/StudentsModal";
 import Axios from "axios";
 
 const LobbyPage = () => {
-  // const CodeBlock1 = {title: 'codeBlock1', code: 'this is the code 1'};
-  // const CodeBlock2 = {title: 'codeBlock2', code: 'this is the code 2'};
-  // const CodeBlocks = [CodeBlock1, CodeBlock2]
   const [codeBlocks, setCodeBlocks] = useState([]);
   const [chosenCodeBlock, setChosenCodeBlock] = React.useState({
     title: "",
@@ -19,17 +16,6 @@ const LobbyPage = () => {
   const OnCodeBlockClick = (codeBlock) => {
     setChosenCodeBlock(codeBlock);
     setOpenModal(true);
-  };
-
-  const loadCoadBlocks = () => {
-    api
-      .get("/codeBlock")
-      .then((res) => {
-        setCodeBlocks(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   useEffect(() => {
@@ -47,7 +33,6 @@ const LobbyPage = () => {
     <div className="lobby">
       <div className="lobby_container">
         <h1>Choose Code Block</h1>
-        {/* {loadCoadBlocks()} */}
         {codeBlocks.map((codeBlock) => (
           <button
             onClick={() => OnCodeBlockClick(codeBlock)}

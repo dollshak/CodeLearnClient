@@ -10,51 +10,40 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
   const [mentorLink, setMentorLink] = useState("");
   const [chosenStudent, setChosenStudent] = useState({});
   const [showMessage, setShowMessage] = useState(false);
+  const [uuid, setUuid] = useState("");
   const api = Axios.create({
     baseURL: "http://localhost:5000",
   });
   if (!open) return null;
 
-  //   const handleChange = (event) => {
-  //     const value = event.target.value
-  //     console.log(value);
-  //     setChosenStudent(value)
-  //     console.log(chosenStudent)
-  // }
+  const onStudentClick = async (student) => {
+    await api
+      .post("/session", {
+        data: {
+          userId: student._id,
+          codeBlockId: codeBlock._id,
+        },
+      })
+      .then((res) => {
+        setUuid(res.data.uuid);
 
-  const createSession = () => {
-    return {
-      uuid: 5,
-    };
-  };
+        setMentorLink(
+          "/codeBlock?uuid="
+            .concat(res.data.uuid)
+            .concat("&student_login=false&isStudent=false")
+        );
+        setStudentLink(
+          "/codeBlock?uuid="
+            .concat(res.data.uuid)
+            .concat("&student_login=true&isStudent=true")
+        );
 
-  const onStudentClick = (student) => {
-    console.log(codeBlock);
-    console.log(student);
-    // setStudentLink(student.username);
-    // setChosenStudent((student) => ({
-    //   ...student,
-    //   username: student.username,
-    // }));
-    // setChosenStudent((student) => ({
-    //   ...student,
-    //   password: student.password,
-    // }));
-    // setChosenStudent((student) => ({
-    //   ...student,
-    //   role: student.role,
-    // }));
-
-    const session = createSession();
-
-    setMentorLink(
-      "/codeBlock?uuid=".concat(session.uuid).concat("&student_login=false")
-    );
-    setStudentLink(
-      "/codeBlock?uuid=".concat(session.uuid).concat("&student_login=true")
-    );
-
-    setShowMessage(true);
+        setShowMessage(true);
+      })
+      .catch((res) => {
+        console.log("failed");
+        return res.message;
+      });
   };
 
   const onCloseModal = () => {
@@ -83,7 +72,6 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
         <div className="links">
           {showMessage && <a href={studentLink}>student's link</a>}
           {showMessage && <a href={mentorLink}>mentor's link</a>}
-          {/* {showMessage && <p>{chosenStudent}</p>} */}
         </div>
 
         <div className="students_list">

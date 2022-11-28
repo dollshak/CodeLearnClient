@@ -58,7 +58,9 @@ const LoginPage = ({}) => {
     console.log("on submit student");
     // validateLogIn();
     navigate(
-      "/codeBlock?uuid=".concat(uuid).concat("&student_login=").concat("false")
+      "/codeBlock?uuid="
+        .concat(uuid)
+        .concat("&student_login=false&isStudent=true")
     );
   };
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StudentsModal } from "../StudentsModal/StudentsModal";
 import Axios from "axios";
 
@@ -32,11 +32,22 @@ const LobbyPage = () => {
       });
   };
 
+  useEffect(() => {
+    api
+      .get("/codeBlock")
+      .then((res) => {
+        setCodeBlocks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
   return (
     <div className="lobby">
       <div className="lobby_container">
         <h1>Choose Code Block</h1>
-        {loadCoadBlocks()}
+        {/* {loadCoadBlocks()} */}
         {codeBlocks.map((codeBlock) => (
           <button
             onClick={() => OnCodeBlockClick(codeBlock)}

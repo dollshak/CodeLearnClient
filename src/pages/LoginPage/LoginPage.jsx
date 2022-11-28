@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Axios from "axios";
-import GetAllUsers from "../../api";
 
 const api = Axios.create({
   baseURL: "http://localhost:5000",
 });
 
-const LoginPage = () => {
+const LoginPage = ({}) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [uuid, setUuid] = useState();
   const [userDetails, setUserDetails] = React.useState({
     username: "",
     password: "",
@@ -20,7 +21,6 @@ const LoginPage = () => {
 
   const handleChange = (event) => {
     const value = event.target.value;
-    console.log(event);
     setUserDetails({
       ...userDetails,
       [event.target.name]: value,
@@ -29,7 +29,14 @@ const LoginPage = () => {
 
   React.useEffect(() => {}, [userDetails.username]);
 
-  async function OnSubmit() {
+  useEffect(() => setUuid(searchParams.get("uuid")));
+
+  const validateMentorLogIn = () => {
+    api.get("/users/mentor/");
+  };
+
+  async function OnSubmitMentor() {
+    console.log("on submit mentor");
     api
       .get("/users")
       .then((res) => {
@@ -46,8 +53,17 @@ const LoginPage = () => {
       alert("login is field, plese try again");
     }
   }
+
+  const onSubminStudent = () => {
+    console.log("on submit student");
+    // validateLogIn();
+    navigate(
+      "/codeBlock?uuid=".concat(uuid).concat("&student_login=").concat("false")
+    );
+  };
   return (
     <div className="login">
+      {console.log("uuid from login", uuid)}
       <div className="login_contianer">
         <h1>Login Page</h1>
         <div className="inputs_container">
@@ -67,7 +83,7 @@ const LoginPage = () => {
           />
         </div>
 
-        <button type="submit" onClick={OnSubmit}>
+        <button type="submit" onClick={uuid ? onSubminStudent : OnSubmitMentor}>
           login
         </button>
       </div>

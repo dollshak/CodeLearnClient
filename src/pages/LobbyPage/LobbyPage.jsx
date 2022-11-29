@@ -33,14 +33,16 @@ const LobbyPage = () => {
     <div className="lobby">
       <div className="lobby_container">
         <h1>Choose Code Block</h1>
-        {codeBlocks.map((codeBlock) => (
-          <button
-            onClick={() => OnCodeBlockClick(codeBlock)}
-            className="code_block"
-          >
-            {codeBlock.title}
-          </button>
-        ))}
+        <div className="code_blocks">
+          {codeBlocks.map((codeBlock) => (
+            <button
+              onClick={() => OnCodeBlockClick(codeBlock)}
+              className="code_block"
+            >
+              {codeBlock.title}
+            </button>
+          ))}
+        </div>
         <StudentsModal
           open={openModal}
           onClose={() => setOpenModal(false)}

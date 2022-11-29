@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Axios from "axios";
 
-const api = Axios.create({
-  baseURL: "http://localhost:5000",
-});
-
 const LoginPage = ({}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [uuid, setUuid] = useState();
-  const [userDetails, setUserDetails] = React.useState({
+  const [userDetails, setUserDetails] = useState({
     username: "",
     password: "",
   });
-  const [users, setUsers] = useState([]);
-
-  const user = { username: "gal", password: "123" };
+  const [message, setMessage] = useState("");
+  const api = Axios.create({
+    baseURL: "http://localhost:5000",
+  });
 
   const navigate = useNavigate();
 
@@ -31,37 +28,56 @@ const LoginPage = ({}) => {
 
   useEffect(() => setUuid(searchParams.get("uuid")));
 
-  const validateMentorLogIn = () => {
-    api.get("/users/mentor/");
-  };
-
   async function OnSubmitMentor() {
     console.log("on submit mentor");
-    api
-      .get("/users")
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
 
-    if (userDetails.password === user.password) {
-      localStorage.setItem(userDetails.name, "token");
-      navigate("/lobby");
-    } else {
-      alert("login is field, plese try again");
-    }
+    api
+      .post("/users/login", {
+        data: {
+          username: userDetails.username,
+          password: userDetails.password,
+        },
+      })
+      .then((res) => {
+        console.log("data back", res.data);
+        if (res.data.length === 0) {
+          setMessage("no such user");
+        } else if (res.data[0].role !== "mentor") {
+          setMessage("you have to be a mentor to log into lobby");
+        } else {
+          navigate("/lobby");
+        }
+      })
+      .catch((res) => {
+        console.log("error");
+      });
   }
 
   const onSubminStudent = () => {
-    console.log("on submit student");
-    // validateLogIn();
-    navigate(
-      "/codeBlock?uuid="
-        .concat(uuid)
-        .concat("&student_login=false&isStudent=true")
-    );
+    api.get("./session/".concat(uuid)).then((resSession) => {
+      api
+        .post("./users/login", {
+          data: {
+            username: userDetails.username,
+            password: userDetails.password,
+          },
+        })
+        .then((resUser) => {
+          if (resUser.data.length === 0) {
+            setMessage("no such user");
+          } else if (resUser.data[0].role !== "student") {
+            setMessage("you have to be a mentor to log into lobby");
+          } else if (resUser.data[0]._id !== resSession.data[0].userId) {
+            setMessage("wrong user");
+          } else {
+            navigate(
+              "/codeBlock?uuid="
+                .concat(uuid)
+                .concat("&student_login=false&isStudent=true")
+            );
+          }
+        });
+    });
   };
   return (
     <div className="login">
@@ -88,6 +104,8 @@ const LoginPage = ({}) => {
         <button type="submit" onClick={uuid ? onSubminStudent : OnSubmitMentor}>
           login
         </button>
+
+        <p>{message}</p>
       </div>
     </div>
   );

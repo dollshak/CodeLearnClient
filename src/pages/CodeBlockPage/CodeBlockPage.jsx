@@ -34,6 +34,14 @@ const CodeBlockPage = () => {
     socket.emit("join_session", sessionUuid);
   }, [sessionUuid]);
 
+  // function sync_scroll(element) {
+  //   /* Scroll result to scroll coords of event - sync with textarea */
+  //   let result_element = document.querySelector("#highlighting");
+  //   // Get and set x and y
+  //   result_element.scrollTop = element.scrollTop;
+  //   result_element.scrollLeft = element.scrollLeft;
+  // }
+
   useEffect(() => {
     setSessionUuid(searchParams.get("uuid"));
     setStudent_login(searchParams.get("student_login"));
@@ -53,6 +61,7 @@ const CodeBlockPage = () => {
           console.log("got codeBlock", res.data);
           setCodeBlockTitle(res.data[0].title);
           setCodeBlockCode(res.data[0].code);
+          // setTextBox(res.data[0].code);
           console.log(codeBlockTitle);
           console.log(codeBlockCode);
         });
@@ -60,22 +69,34 @@ const CodeBlockPage = () => {
       .catch((err) => console.log(err));
   });
 
+  const handleChange = (text) => {
+    setTextBox(text);
+    sendCodeToMentor(text);
+    if (text[text.length - 1] === "\n") {
+      // If the last character is a newline character
+      text += " "; // Add a placeholder space character to the final line
+    }
+  };
+
   return (
-    <div className="code_block">
+    <div className="code_block_page">
       <div className="code_clock_container">
         <h1>{codeBlockTitle}</h1>
 
         <textarea
           id="editing"
+          hidden={isStudent === "false"}
+          spellCheck="false"
           value={textBox}
           className="text_area"
           onChange={(ev) =>
-            isStudent === "true" &&
-            setTextBox(ev.target.value) & sendCodeToMentor(ev.target.value)
+            isStudent === "true" && handleChange(ev.target.value)
           }
         ></textarea>
 
-        <Highlight className="highlighed_text">{textBox}</Highlight>
+        <Highlight id="highlighed_text" className="highlighed_text">
+          {textBox}
+        </Highlight>
       </div>
     </div>
   );

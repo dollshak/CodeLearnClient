@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import LobbyPage from './pages/LobbyPage/LobbyPage';
 import CodeBlockPage from './pages/CodeBlockPage/CodeBlockPage';
+import SocketTry from './pages/SocketTry/SocketTry';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/lobby" element={<LobbyPage/>}/>
           <Route path="/codeBlock:uuid:student_login" element={<CodeBlockPage/>}/>
           <Route path="/codeBlock" element={<CodeBlockPage/>}/>
+          <Route path="/socketTry" element={<SocketTry/>}/>
 
 
 

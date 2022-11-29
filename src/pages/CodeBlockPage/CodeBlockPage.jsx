@@ -1,7 +1,9 @@
-import React, { Component, useEffect, useState } from "react";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import Highlight from "react-highlight";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5000");
 
 const CodeBlockPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,6 +18,21 @@ const CodeBlockPage = () => {
     baseURL: "http://localhost:5000",
   });
   const navigate = useNavigate();
+
+  const sendCodeToMentor = (newCode) => {
+    console.log("sending");
+    socket.emit("update_code", { code: newCode, sessionUuid: sessionUuid });
+  };
+
+  useEffect(() => {
+    socket.on("receive_updated_code", (data) => {
+      setTextBox(data.code);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.emit("join_session", sessionUuid);
+  }, [sessionUuid]);
 
   useEffect(() => {
     setSessionUuid(searchParams.get("uuid"));
@@ -33,7 +50,7 @@ const CodeBlockPage = () => {
       .then((res) => {
         console.log("got session", res.data[0]);
         api.get("/codeBlock/".concat(res.data[0].codeBlockId)).then((res) => {
-          // console.log("got codeBlock", res.data);
+          console.log("got codeBlock", res.data);
           setCodeBlockTitle(res.data[0].title);
           setCodeBlockCode(res.data[0].code);
           console.log(codeBlockTitle);
@@ -42,14 +59,6 @@ const CodeBlockPage = () => {
       })
       .catch((err) => console.log(err));
   });
-
-  const update = () => {
-    console.log("update");
-    let textAreaContent = document.getElementById("editing");
-    let result_element = document.getElementById("highlighting-content");
-    console.log("object", textAreaContent, result_element);
-    // result_element.innerText = textAreaContent;
-  };
 
   return (
     <div className="code_block">
@@ -60,7 +69,10 @@ const CodeBlockPage = () => {
           id="editing"
           value={textBox}
           className="text_area"
-          onChange={(ev) => isStudent === "true" && setTextBox(ev.target.value)}
+          onChange={(ev) =>
+            isStudent === "true" &&
+            setTextBox(ev.target.value) & sendCodeToMentor(ev.target.value)
+          }
         ></textarea>
 
         <Highlight className="highlighed_text">{textBox}</Highlight>
@@ -68,7 +80,5 @@ const CodeBlockPage = () => {
     </div>
   );
 };
-
-// onChange={(ev) => this.setState({ textBox: ev.target.value })}
 
 export default CodeBlockPage;

@@ -17,7 +17,7 @@ function App() {
           <Link to="/login">Login</Link> */}
         <Routes >
           <Route path="/login" element={<LoginPage/>} />
-          <Route path="/" />
+          <Route path="/" element={<LoginPage/>}/>
           <Route path="/lobby" element={<LobbyPage/>}/>
           <Route path="/codeBlock:uuid:student_login" element={<CodeBlockPage/>}/>
           <Route path="/codeBlock" element={<CodeBlockPage/>}/>

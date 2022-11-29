@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 
 export const StudentsModal = ({ open, onClose, codeBlock }) => {
   const [students, setStudents] = React.useState([]);
-  // const students = [{username: 'dollshak', password: '123', role: ''},
-  // {username: 'peleg', password: '2', role: ''},
-  // {username: 'gal', password: '1', role: ''}]
   const [studentLink, setStudentLink] = useState("");
   const [mentorLink, setMentorLink] = useState("");
-  const [chosenStudent, setChosenStudent] = useState({});
   const [showMessage, setShowMessage] = useState(false);
   const [uuid, setUuid] = useState("");
   const api = Axios.create({

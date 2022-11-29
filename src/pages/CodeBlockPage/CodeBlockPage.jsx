@@ -13,10 +13,13 @@ const CodeBlockPage = () => {
   const [codeBlockCode, setCodeBlockCode] = useState("");
   const [textBox, setTextBox] = useState("const h = true;");
   const [isStudent, setIsStudent] = useState("");
+  const [codeBlockId, setCodeBlockId] = useState("");
+  const [first, setFirst] = useState("");
 
   const api = Axios.create({
     baseURL: "http://localhost:5000",
   });
+
   const navigate = useNavigate();
 
   const sendCodeToMentor = (newCode) => {
@@ -34,39 +37,63 @@ const CodeBlockPage = () => {
     socket.emit("join_session", sessionUuid);
   }, [sessionUuid]);
 
-  // function sync_scroll(element) {
-  //   /* Scroll result to scroll coords of event - sync with textarea */
-  //   let result_element = document.querySelector("#highlighting");
-  //   // Get and set x and y
-  //   result_element.scrollTop = element.scrollTop;
-  //   result_element.scrollLeft = element.scrollLeft;
-  // }
-
-  useEffect(() => {
+  const setParams = () => {
     setSessionUuid(searchParams.get("uuid"));
     setStudent_login(searchParams.get("student_login"));
     setIsStudent(searchParams.get("isStudent"));
-    console.log("from params", searchParams.get("isStudent"));
-    console.log("from this", isStudent);
+  };
+
+  // useEffect(() => {
+  //   setParams();
+  //   if (student_login === "true") {
+  //     navigate("/login?uuid=".concat(sessionUuid));
+  //   }
+  //   api
+  //     .get("/session/".concat(sessionUuid))
+  //     .then((res) => {
+  //       // console.log("got session", res.data[0]);
+  //       api.get("/codeBlock/".concat(res.data[0].codeBlockId)).then((res) => {
+  //         console.log("got codeBlock", res.data);
+  //         setCodeBlockTitle(res.data[0].title);
+  //         setCodeBlockCode(res.data[0].code);
+  //         // setTextBox(res.data[0].code);
+  //         console.log(codeBlockTitle);
+  //         console.log(codeBlockCode);
+  //       });
+  //     })
+  //     .catch((err) => console.log(err));
+  // });
+
+  useEffect(() => {
+    setParams();
     if (student_login === "true") {
-      console.log("student login true");
       navigate("/login?uuid=".concat(sessionUuid));
     }
-
-    api
-      .get("/session/".concat(sessionUuid))
-      .then((res) => {
-        console.log("got session", res.data[0]);
-        api.get("/codeBlock/".concat(res.data[0].codeBlockId)).then((res) => {
-          console.log("got codeBlock", res.data);
-          setCodeBlockTitle(res.data[0].title);
-          setCodeBlockCode(res.data[0].code);
-          // setTextBox(res.data[0].code);
-          console.log(codeBlockTitle);
-          console.log(codeBlockCode);
+    async function apiCall() {
+      api
+        .get("/session/".concat(sessionUuid))
+        .then((res) => {
+          console.log("got session", res.data);
+          setCodeBlockId(res.data[0].codeBlockId);
+          // console.log("code block id", codeBlockId);
+          return res.data[0].codeBlockId;
+        })
+        .then((codeBlockId) => {
+          console.log(codeBlockId);
+          api.get("/codeBlock/".concat(codeBlockId)).then((response) => {
+            setCodeBlockTitle(response.data[0].title);
+            setCodeBlockCode(response.data[0].code);
+            if (first === "") {
+              setTextBox(response.data[0].code);
+              console.log(textBox);
+              setFirst("not first time here");
+            }
+            console.log(textBox);
+            console.log(isStudent);
+          });
         });
-      })
-      .catch((err) => console.log(err));
+    }
+    apiCall();
   });
 
   const handleChange = (text) => {

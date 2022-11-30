@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Axios from "axios";
+import configData from "../../config.json";
 
 const LoginPage = () => {
   const [searchParams] = useSearchParams();
@@ -11,7 +12,7 @@ const LoginPage = () => {
   });
   const [message, setMessage] = useState("");
   const api = Axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: configData.server_url,
   });
 
   const navigate = useNavigate();

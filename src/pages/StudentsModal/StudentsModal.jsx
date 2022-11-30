@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import configData from "../../config.json";
 
 export const StudentsModal = ({ open, onClose, codeBlock }) => {
   const [students, setStudents] = React.useState([]);
   const [studentLink, setStudentLink] = useState("");
   const [mentorLink, setMentorLink] = useState("");
   const [showMessage, setShowMessage] = useState(false);
+
   const api = Axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: configData.server_url,
   });
   if (!open) return null;
 

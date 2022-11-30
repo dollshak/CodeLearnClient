@@ -3,7 +3,9 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import Highlight from "react-highlight";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:5000");
+import configData from "../../config.json";
+
+const socket = io.connect(configData.server_url);
 
 const CodeBlockPage = () => {
   const [searchParams] = useSearchParams();
@@ -15,7 +17,7 @@ const CodeBlockPage = () => {
   const [first, setFirst] = useState("");
 
   const api = Axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: configData.server_url,
   });
 
   const navigate = useNavigate();

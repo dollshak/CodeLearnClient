@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StudentsModal } from "../StudentsModal/StudentsModal";
 import Axios from "axios";
+import configData from "../../config.json";
 
 const LobbyPage = () => {
   const [codeBlocks, setCodeBlocks] = useState([]);
@@ -10,7 +11,7 @@ const LobbyPage = () => {
   });
   const [openModal, setOpenModal] = useState(false);
   const api = Axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: configData.server_url,
   });
 
   const OnCodeBlockClick = (codeBlock) => {

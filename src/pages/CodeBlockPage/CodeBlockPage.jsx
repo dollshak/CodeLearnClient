@@ -86,7 +86,7 @@ const CodeBlockPage = () => {
           }
         ></textarea>
 
-        <Highlight id="highlighed_text" className="highlighed_text">
+        <Highlight id="highlighed_text" className="javascript">
           {textBox}
         </Highlight>
       </div>

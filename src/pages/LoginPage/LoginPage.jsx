@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Axios from "axios";
 
-const LoginPage = ({}) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+const LoginPage = () => {
+  const [searchParams] = useSearchParams();
   const [uuid, setUuid] = useState();
   const [userDetails, setUserDetails] = useState({
     username: "",
@@ -28,9 +28,8 @@ const LoginPage = ({}) => {
 
   useEffect(() => setUuid(searchParams.get("uuid")));
 
+  //validate mentor details and continue to lobby page if valid
   async function OnSubmitMentor() {
-    console.log("on submit mentor");
-
     api
       .post("/users/login", {
         data: {
@@ -39,17 +38,16 @@ const LoginPage = ({}) => {
         },
       })
       .then((res) => {
-        console.log("data back", res.data);
-        if (res.data.length === 0) {
+        if (!res?.data?.length) {
           setMessage("no such user");
-        } else if (res.data[0].role !== "mentor") {
+        } else if (res.data[0]?.role !== "mentor") {
           setMessage("you have to be a mentor to log into lobby");
         } else {
           navigate("/lobby");
         }
       })
       .catch((res) => {
-        console.log("error");
+        console.log("could not get user from server while trying to log in");
       });
   }
 
@@ -79,20 +77,20 @@ const LoginPage = ({}) => {
         });
     });
   };
+
   return (
     <div className="login">
-      {console.log("uuid from login", uuid)}
       <div className="login_contianer">
-        <h1>Login Page</h1>
+        <h1 className="login_page_title">Login Page</h1>
         <div className="inputs_container">
-          <label> username</label>
+          <label className="username_label"> username</label>
           <input
             value={userDetails.username}
             name="username"
             type="text"
             onChange={handleChange}
           />
-          <label> password</label>
+          <label className="password_label"> password</label>
           <input
             value={userDetails.password}
             name="password"
@@ -101,11 +99,15 @@ const LoginPage = ({}) => {
           />
         </div>
 
-        <button type="submit" onClick={uuid ? onSubminStudent : OnSubmitMentor}>
+        <button
+          className="login_button"
+          type="submit"
+          onClick={uuid ? onSubminStudent : OnSubmitMentor}
+        >
           login
         </button>
 
-        <p>{message}</p>
+        <p className="message">{message}</p>
       </div>
     </div>
   );

@@ -22,22 +22,22 @@ const LobbyPage = () => {
     api
       .get("/codeBlock")
       .then((res) => {
-        setCodeBlocks(res.data);
+        setCodeBlocks(res?.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("could not get code block from server");
       });
   });
 
   return (
     <div className="lobby">
       <div className="lobby_container">
-        <h1>Choose Code Block</h1>
+        <h1 className="title">Choose Code Block</h1>
         <div className="code_blocks">
           {codeBlocks.map((codeBlock) => (
             <button
               onClick={() => OnCodeBlockClick(codeBlock)}
-              className="code_block"
+              className="button"
             >
               {codeBlock.title}
             </button>

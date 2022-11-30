@@ -6,12 +6,12 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
   const [studentLink, setStudentLink] = useState("");
   const [mentorLink, setMentorLink] = useState("");
   const [showMessage, setShowMessage] = useState(false);
-  const [uuid, setUuid] = useState("");
   const api = Axios.create({
     baseURL: "http://localhost:5000",
   });
   if (!open) return null;
 
+  //create new session with chosen student and code block
   const onStudentClick = async (student) => {
     await api
       .post("/session", {
@@ -21,24 +21,21 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
         },
       })
       .then((res) => {
-        setUuid(res.data.uuid);
-
         setMentorLink(
           "/codeBlock?uuid="
-            .concat(res.data.uuid)
+            .concat(res?.data?.uuid)
             .concat("&student_login=false&isStudent=false")
         );
         setStudentLink(
           "/codeBlock?uuid="
-            .concat(res.data.uuid)
+            .concat(res?.data?.uuid)
             .concat("&student_login=true&isStudent=true")
         );
 
         setShowMessage(true);
       })
       .catch((res) => {
-        console.log("failed");
-        return res.message;
+        console.log("could not create session while choosing student");
       });
   };
 
@@ -51,7 +48,7 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
     api
       .get("/users/students")
       .then((res) => {
-        setStudents(res.data);
+        setStudents(res?.data);
       })
       .catch((err) => {});
   };
@@ -59,11 +56,12 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
   return (
     <div className="students_modal">
       <div className="students_container">
-        <div className="close_modal">
-          <button onClick={onCloseModal}>X</button>
+        <button className="close_modal" onClick={onCloseModal}>
+          X
+        </button>
+        <div className="title">
+          <h1>Choose a Student</h1>
         </div>
-
-        <h1>Choose a Student</h1>
 
         <div className="links">
           {showMessage && <a href={studentLink}>student's link</a>}

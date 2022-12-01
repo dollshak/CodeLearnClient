@@ -10,25 +10,25 @@ const LobbyPage = () => {
     code: "",
   });
   const [openModal, setOpenModal] = useState(false);
-  const api = Axios.create({
-    baseURL: configData.server_url,
-  });
+  // const api = Axios.create({
+  //   baseURL: configData.server_url,
+  // });
 
   const OnCodeBlockClick = (codeBlock) => {
     setChosenCodeBlock(codeBlock);
     setOpenModal(true);
   };
 
-  useEffect(() => {
-    api
-      .get("/codeBlock")
-      .then((res) => {
-        setCodeBlocks(res?.data);
-      })
-      .catch((err) => {
-        console.log("could not get code block from server");
-      });
-  });
+  // useEffect(() => {
+  //   api
+  //     .get("/codeBlock")
+  //     .then((res) => {
+  //       setCodeBlocks(res?.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("could not get code block from server");
+  //     });
+  // });
 
   return (
     <div className="lobby">

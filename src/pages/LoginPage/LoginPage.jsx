@@ -53,33 +53,33 @@ const LoginPage = () => {
   }
 
   const onSubminStudent = () => {
-    api.get("./session/".concat(uuid)).then((resSession) => {
-      api
-        .post("./users/login", {
-          data: {
-            username: userDetails.username,
-            password: userDetails.password,
-          },
-        })
-        .then((resUser) => {
-          if (resUser.data.length === 0) {
-            setMessage("no such user");
-          } else if (resUser.data[0].role !== "student") {
-            setMessage("you have to be a mentor to log into lobby");
-          } else if (resUser.data[0]._id !== resSession.data[0].userId) {
-            setMessage("wrong user");
-          } else {
-            navigate(
-              "/codeBlock?uuid="
-                .concat(uuid)
-                .concat("&student_login=false&isStudent=true")
-            );
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
+    // api.get("./session/".concat(uuid)).then((resSession) => {
+    //   api
+    //     .post("./users/login", {
+    //       data: {
+    //         username: userDetails.username,
+    //         password: userDetails.password,
+    //       },
+    //     })
+    //     .then((resUser) => {
+    //       if (resUser.data.length === 0) {
+    //         setMessage("no such user");
+    //       } else if (resUser.data[0].role !== "student") {
+    //         setMessage("you have to be a mentor to log into lobby");
+    //       } else if (resUser.data[0]._id !== resSession.data[0].userId) {
+    //         setMessage("wrong user");
+    //       } else {
+    //         navigate(
+    //           "/codeBlock?uuid="
+    //             .concat(uuid)
+    //             .concat("&student_login=false&isStudent=true")
+    //         );
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // });
   };
 
   return (

@@ -8,37 +8,36 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
   const [mentorLink, setMentorLink] = useState("");
   const [showMessage, setShowMessage] = useState(false);
 
-  const api = Axios.create({
-    baseURL: configData.server_url,
-  });
+  // const api = Axios.create({
+  //   baseURL: configData.server_url,
+  // });
   if (!open) return null;
 
   //create new session with chosen student and code block
   const onStudentClick = async (student) => {
-    await api
-      .post("/session", {
-        data: {
-          userId: student._id,
-          codeBlockId: codeBlock._id,
-        },
-      })
-      .then((res) => {
-        setMentorLink(
-          "/codeBlock?uuid="
-            .concat(res?.data?.uuid)
-            .concat("&student_login=false&isStudent=false")
-        );
-        setStudentLink(
-          "/codeBlock?uuid="
-            .concat(res?.data?.uuid)
-            .concat("&student_login=true&isStudent=true")
-        );
-
-        setShowMessage(true);
-      })
-      .catch((res) => {
-        console.log("could not create session while choosing student");
-      });
+    // await api
+    //   .post("/session", {
+    //     data: {
+    //       userId: student._id,
+    //       codeBlockId: codeBlock._id,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     setMentorLink(
+    //       "/codeBlock?uuid="
+    //         .concat(res?.data?.uuid)
+    //         .concat("&student_login=false&isStudent=false")
+    //     );
+    //     setStudentLink(
+    //       "/codeBlock?uuid="
+    //         .concat(res?.data?.uuid)
+    //         .concat("&student_login=true&isStudent=true")
+    //     );
+    //     setShowMessage(true);
+    //   })
+    //   .catch((res) => {
+    //     console.log("could not create session while choosing student");
+    //   });
   };
 
   const onCloseModal = () => {
@@ -47,12 +46,12 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
   };
 
   const loadStudents = () => {
-    api
-      .get("/users/students")
-      .then((res) => {
-        setStudents(res?.data);
-      })
-      .catch((err) => {});
+    // api
+    //   .get("/users/students")
+    //   .then((res) => {
+    //     setStudents(res?.data);
+    //   })
+    //   .catch((err) => {});
   };
 
   return (

@@ -27,7 +27,7 @@ const LoginPage = () => {
 
   React.useEffect(() => {}, [userDetails.username]);
 
-  useEffect(() => setUuid(searchParams.get("uuid")));
+  useEffect(() => setUuid(searchParams.get("uuid")), [searchParams]);
 
   //validate mentor details and continue to lobby page if valid
   async function OnSubmitMentor() {
@@ -75,6 +75,9 @@ const LoginPage = () => {
                 .concat("&student_login=false&isStudent=true")
             );
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     });
   };

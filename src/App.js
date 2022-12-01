@@ -3,7 +3,6 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import {
   Routes ,
   Route,
-  Link
 } from "react-router-dom";
 import LobbyPage from './pages/LobbyPage/LobbyPage';
 import CodeBlockPage from './pages/CodeBlockPage/CodeBlockPage';

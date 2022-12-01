@@ -31,7 +31,7 @@ const CodeBlockPage = () => {
     socket.on("receive_updated_code", (data) => {
       setTextBox(data.code);
     });
-  }, [socket]);
+  }, []);
 
   //make mentor register to student changes via socket
   useEffect(() => {
@@ -63,6 +63,9 @@ const CodeBlockPage = () => {
               setFirst("not first time"); //make sure textBox update happens one time
             }
           });
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
     apiCall();

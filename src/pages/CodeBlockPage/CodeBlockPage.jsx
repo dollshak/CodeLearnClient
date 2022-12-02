@@ -6,14 +6,13 @@ import io from "socket.io-client";
 import configData from "../../config.json";
 
 const socket = io.connect(
-  configData.production
-    ? configData.server_url_prod
-    : configData.local_server_url
+  "http://ec2-3-86-186-64.compute-1.amazonaws.com:80/mysocket"
 );
-
-// const socket = io(server_url, {
-//   transports: ["websocket"],
-// });
+// const socket = io.connect(
+//   configData.production
+//     ? configData.server_url_prod
+//     : configData.local_server_url
+// );
 
 const CodeBlockPage = () => {
   const [searchParams] = useSearchParams();

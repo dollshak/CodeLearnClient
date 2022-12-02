@@ -5,7 +5,9 @@ import Highlight from "react-highlight";
 import io from "socket.io-client";
 import configData from "../../config.json";
 
-const socket = io.connect("http://localhost:4000/mysocket");
+const socket = io.connect(
+  "http://ec2-3-86-186-64.compute-1.amazonaws.com/mysocket"
+);
 // const socket = io.connect(
 //   configData.production
 //     ? configData.server_url_prod

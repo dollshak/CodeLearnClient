@@ -5,19 +5,15 @@ import Highlight from "react-highlight";
 import io from "socket.io-client";
 import configData from "../../config.json";
 
-// const socket = io.connect(
-//   configData.production
-//     ? configData.server_url_prod
-//     : configData.local_server_url
-// );
+const socket = io.connect(
+  configData.production
+    ? configData.server_url_prod
+    : configData.local_server_url
+);
 
-const server_url = configData.production
-  ? configData.server_url_prod
-  : configData.local_server_url;
-
-const socket = io(server_url, {
-  transports: ["websocket"],
-});
+// const socket = io(server_url, {
+//   transports: ["websocket"],
+// });
 
 const CodeBlockPage = () => {
   const [searchParams] = useSearchParams();

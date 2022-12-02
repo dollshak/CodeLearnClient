@@ -11,7 +11,9 @@ const LobbyPage = () => {
   });
   const [openModal, setOpenModal] = useState(false);
   const api = Axios.create({
-    baseURL: configData.server_url,
+    baseURL: configData.production
+      ? configData.server_url_prod
+      : configData.local_server_url,
   });
 
   const OnCodeBlockClick = (codeBlock) => {

@@ -11,9 +11,13 @@ const LoginPage = () => {
     password: "",
   });
   const [message, setMessage] = useState("");
+  const url = configData.production
+    ? configData.server_url_prod
+    : configData.local_server_url;
   const api = Axios.create({
-    baseURL: configData.server_url,
+    baseURL: url,
   });
+  console.log(url);
 
   const navigate = useNavigate();
 

@@ -9,7 +9,9 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
   const [showMessage, setShowMessage] = useState(false);
 
   const api = Axios.create({
-    baseURL: configData.server_url,
+    baseURL: configData.production
+      ? configData.server_url_prod
+      : configData.local_server_url,
   });
   if (!open) return null;
 

@@ -5,7 +5,11 @@ import Highlight from "react-highlight";
 import io from "socket.io-client";
 import configData from "../../config.json";
 
-const socket = io.connect(configData.server_url);
+const socket = io.connect(
+  configData.production
+    ? configData.server_url_prod
+    : configData.local_server_url
+);
 
 const CodeBlockPage = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +21,9 @@ const CodeBlockPage = () => {
   const [first, setFirst] = useState("");
 
   const api = Axios.create({
-    baseURL: configData.server_url,
+    baseURL: configData.production
+      ? configData.server_url_prod
+      : configData.local_server_url,
   });
 
   const navigate = useNavigate();

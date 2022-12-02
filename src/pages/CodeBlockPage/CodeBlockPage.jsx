@@ -6,7 +6,7 @@ import io from "socket.io-client";
 import configData from "../../config.json";
 
 const socket = io.connect(
-  "http://ec2-3-86-186-64.compute-1.amazonaws.com/mysocket"
+  "http://ec2-3-86-186-64.compute-1.amazonaws.com:80/mysocket"
 );
 // const socket = io.connect(
 //   configData.production

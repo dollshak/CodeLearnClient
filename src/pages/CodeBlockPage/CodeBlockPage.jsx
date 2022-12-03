@@ -4,15 +4,14 @@ import Axios from "axios";
 import Highlight from "react-highlight";
 import io from "socket.io-client";
 import configData from "../../config.json";
+import hljs from "highlight.js";
 
-const socket = io.connect(
-  "http://ec2-3-86-186-64.compute-1.amazonaws.com:4000/"
-);
 // const socket = io.connect(
-//   configData.production
-//     ? configData.server_url_prod
-//     : configData.local_server_url
+//   "http://ec2-3-86-186-64.compute-1.amazonaws.com:4000/"
 // );
+const socket = io.connect(
+  configData.production ? configData.socket_prod : configData.local_server_url
+);
 
 const CodeBlockPage = () => {
   const [searchParams] = useSearchParams();
@@ -58,13 +57,17 @@ const CodeBlockPage = () => {
     if (student_login === "true") {
       navigate("/login?uuid=".concat(sessionUuid));
     }
-    async function apiCall() {
-      api
-        .get("/session/".concat(sessionUuid))
-        .then((res) => {
-          return res?.data[0]?.codeBlockId;
-        })
-        .then((codeBlockId) => {
+
+    api
+      .get("/session/".concat(sessionUuid))
+      .then((res) => {
+        return res?.data[0]?.codeBlockId;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .then((codeBlockId) => {
+        if (codeBlockId) {
           api.get("/codeBlock/".concat(codeBlockId)).then((response) => {
             setCodeBlockTitle(response?.data[0]?.title);
             if (first === "") {
@@ -72,17 +75,23 @@ const CodeBlockPage = () => {
               setFirst("not first time"); //make sure textBox update happens one time
             }
           });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    apiCall();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
   const handleChange = (text) => {
     setTextBox(text);
     sendCodeToMentor(text);
+  };
+
+  const highlight = () => {
+    document.querySelectorAll("div.code").forEach((el) => {
+      // then highlight each
+      hljs.highlightElement(el);
+    });
   };
 
   return (
@@ -100,9 +109,9 @@ const CodeBlockPage = () => {
           }
         ></textarea>
 
-        <Highlight id="highlighed_text" className="javascript">
-          {textBox}
-        </Highlight>
+        <div>
+          <Highlight className="javascript">{textBox}</Highlight>
+        </div>
       </div>
     </div>
   );

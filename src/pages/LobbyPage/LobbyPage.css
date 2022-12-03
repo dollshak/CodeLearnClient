@@ -1,8 +1,10 @@
 .lobby{
     display: flex; 
     flex-direction: column;
-    height:100vh;
-    width:1 ; 
+    /* height:100vh; */
+    height: 100%;
+    width:100% ; 
+    background-color: rgb(29, 19, 19);
 }
 
 .lobby_container{
@@ -19,10 +21,11 @@
 
 .code_blocks{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .button{
+    margin: 10px, 0;
       background-color: rgba(51, 51, 51, 0.05);
       border-radius: 8px;
       border-width: 0;

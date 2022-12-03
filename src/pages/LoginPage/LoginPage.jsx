@@ -89,7 +89,7 @@ const LoginPage = () => {
   return (
     <div className="login">
       <div className="login_contianer">
-        <h1 className="login_page_title">Login Page</h1>
+        <h1 className="login_page_title">Login:</h1>
         <div className="inputs_container">
           <label className="username_label"> username</label>
           <input

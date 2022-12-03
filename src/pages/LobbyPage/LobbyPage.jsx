@@ -35,10 +35,11 @@ const LobbyPage = () => {
   return (
     <div className="lobby">
       <div className="lobby_container">
-        <h1 className="title">Choose Code Block</h1>
+        <h1 className="title">Choose Code Block:</h1>
         <div className="code_blocks">
           {codeBlocks.map((codeBlock) => (
             <button
+              key={codeBlock._id}
               onClick={() => OnCodeBlockClick(codeBlock)}
               className="button"
             >

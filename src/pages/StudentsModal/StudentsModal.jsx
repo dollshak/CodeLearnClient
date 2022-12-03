@@ -63,7 +63,7 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
           X
         </button>
         <div className="title">
-          <h1>Choose a Student</h1>
+          <h1>Choose Student:</h1>
         </div>
 
         <div className="links">
@@ -74,7 +74,11 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
         <div className="students_list">
           {loadStudents()}
           {students.map((student) => (
-            <button className="student" onClick={() => onStudentClick(student)}>
+            <button
+              key={student._id}
+              className="student"
+              onClick={() => onStudentClick(student)}
+            >
               {student.username}
             </button>
           ))}

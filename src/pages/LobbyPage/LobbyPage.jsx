@@ -10,14 +10,27 @@ const LobbyPage = () => {
     code: "",
   });
   const [openModal, setOpenModal] = useState(false);
+  const [students, setStudents] = useState([]);
   const api = Axios.create({
     baseURL: configData.production
       ? configData.server_url_prod
       : configData.local_server_url,
   });
 
+  const getAllStudents = () => {
+    api
+      .get("/users/students")
+      .then((res) => {
+        setStudents(res?.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const OnCodeBlockClick = (codeBlock) => {
     setChosenCodeBlock(codeBlock);
+    getAllStudents();
     setOpenModal(true);
   };
 
@@ -51,6 +64,7 @@ const LobbyPage = () => {
           open={openModal}
           onClose={() => setOpenModal(false)}
           codeBlock={chosenCodeBlock}
+          students={students}
         />
       </div>
     </div>

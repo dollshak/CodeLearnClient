@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import configData from "../../config.json";
 
-export const StudentsModal = ({ open, onClose, codeBlock }) => {
-  const [students, setStudents] = React.useState([]);
+export const StudentsModal = ({ open, onClose, codeBlock, students }) => {
   const [studentLink, setStudentLink] = useState("");
   const [mentorLink, setMentorLink] = useState("");
   const [showMessage, setShowMessage] = useState(false);
@@ -38,7 +37,7 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
         setShowMessage(true);
       })
       .catch((res) => {
-        console.log("could not create session while choosing student");
+        console.log("could not create session while choosing student", res);
       });
   };
 
@@ -47,32 +46,32 @@ export const StudentsModal = ({ open, onClose, codeBlock }) => {
     onClose();
   };
 
-  const loadStudents = () => {
-    api
-      .get("/users/students")
-      .then((res) => {
-        setStudents(res?.data);
-      })
-      .catch((err) => {});
-  };
-
   return (
-    <div className="students_modal">
-      <div className="students_container">
-        <button className="close_modal" onClick={onCloseModal}>
-          X
-        </button>
+    <div className="modal_background">
+      <div className="modal_container">
+        <div className="title_close_button">
+          <button className="close_modal" onClick={onCloseModal}>
+            X
+          </button>
+        </div>
         <div className="title">
           <h1>Choose Student:</h1>
         </div>
 
         <div className="links">
-          {showMessage && <a href={studentLink}>student's link</a>}
-          {showMessage && <a href={mentorLink}>mentor's link</a>}
+          {showMessage && (
+            <a className="link" href={studentLink}>
+              student's link
+            </a>
+          )}
+          {showMessage && (
+            <a className="link" href={mentorLink}>
+              mentor's link
+            </a>
+          )}
         </div>
 
         <div className="students_list">
-          {loadStudents()}
           {students.map((student) => (
             <button
               key={student._id}

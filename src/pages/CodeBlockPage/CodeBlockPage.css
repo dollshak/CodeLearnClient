@@ -10,52 +10,13 @@
     display: flex;
     background-color:  rgb(255, 222, 222);
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 .code_block_name{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* .input_container{
-    display: flex;
-    flex-direction: column;
-} */
-
-/* .text_area{ */
-    /* width: 178px;
-    line-height: 15pt; */
-
-    /*comment*/
-    /* text-align: justify;
-    -moz-text-align-last: center; 
-    text-align-last: center; */
-/* } */
-
-/* .highlight{
-    text-align: left;
-} */
-
-/* #editing {
-    position: absolute;
-    top: 102px;
-    left: 478px;
-    border: 0;
-    z-index: 1;
-    color: transparent;
-    background: transparent;
-    caret-color: white; 
-    overflow: auto;
-
-  } */
-
-  /* .text_area_contaier{
-    align-items: center;
-  } */
-
   #editing, #highlighting {
-    /* Both elements need the same text and space styling so they are directly on top of each other */
     margin: 10px;
     padding: 10px;
     border: 0;
@@ -66,7 +27,6 @@
   }
 
   #editing, #highlighting, #highlighting * {
-    /* Also add text styles to highlighting tokens */
     font-size: 15pt;
     font-family: monospace;
     line-height: 20pt;
@@ -77,14 +37,14 @@
     z-index: 0;
   }
 
-#editing {
+ #editing {
     border: 0;
-  position: absolute;
-  top: 128px;
-  left: 27px;
-  z-index: 1;
-  color: transparent;
-  background: transparent;
-  caret-color: white; 
-  resize: none;
+    position: absolute;
+    top: 128px;
+    left: 27px;
+    z-index: 1;
+    color: transparent;
+    background: transparent;
+    caret-color: white; 
+    resize: none;
 }

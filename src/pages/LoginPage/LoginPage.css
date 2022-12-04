@@ -2,8 +2,6 @@
     display: flex; 
     background-color: rgb(18, 16, 16);
     flex-direction: column;
-    /* height:150vh;
-    width:1 ;  */
     height: 100%;
     width: 100%;
     z-index: 1;

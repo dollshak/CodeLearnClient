@@ -4,11 +4,7 @@ import Axios from "axios";
 import Highlight from "react-highlight";
 import io from "socket.io-client";
 import configData from "../../config.json";
-import hljs from "highlight.js";
 
-// const socket = io.connect(
-//   "http://ec2-3-86-186-64.compute-1.amazonaws.com:4000/"
-// );
 const socket = io.connect(
   configData.production ? configData.socket_prod : configData.local_server_url
 );

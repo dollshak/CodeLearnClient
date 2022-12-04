@@ -52,7 +52,10 @@ const LoginPage = () => {
         }
       })
       .catch((res) => {
-        console.log("could not get user from server while trying to log in");
+        console.log(
+          "could not get user from server while trying to log in",
+          res
+        );
       });
   }
 

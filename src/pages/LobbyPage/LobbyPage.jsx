@@ -41,7 +41,7 @@ const LobbyPage = () => {
         setCodeBlocks(res?.data);
       })
       .catch((err) => {
-        console.log("could not get code block from server");
+        console.log("could not get code block from server", err);
       });
   });
 

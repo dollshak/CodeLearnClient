@@ -30,14 +30,12 @@ const CodeBlockPage = () => {
     socket.emit("update_code", { code: newCode, sessionUuid: sessionUuid });
   };
 
-  //recive updated code from student via socket
   useEffect(() => {
     socket.on("receive_updated_code", (data) => {
       setTextBox(data.code);
     });
   }, []);
 
-  //make mentor register to student changes via socket
   useEffect(() => {
     socket.emit("join_session", sessionUuid);
   }, [sessionUuid]);
@@ -48,6 +46,7 @@ const CodeBlockPage = () => {
     setIsStudent(searchParams.get("isStudent"));
   };
 
+  //get code block
   useEffect(() => {
     setParams();
     if (student_login === "true") {
@@ -68,7 +67,7 @@ const CodeBlockPage = () => {
             setCodeBlockTitle(response?.data[0]?.title);
             if (first === "") {
               setTextBox(response?.data[0]?.code);
-              setFirst("not first time"); //make sure textBox update happens one time
+              setFirst("not first time");
             }
           });
         }

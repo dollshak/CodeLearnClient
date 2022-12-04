@@ -1,12 +1,12 @@
-
 .modal_background{
     width: 100vw;
     height: 100vh;
-    background-color: rgb(227, 227, 227);
+    background-color: rgb(255, 222, 222);
     position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 1px;
 }
 .modal_container{
     position:absolute;
@@ -53,7 +53,7 @@
 }
 
 .student ,.close_modal{
-    background-color: rgb(255, 222, 222);
+    background-color: rgb(221, 220, 220);
     border-radius: 8px;
     border-width: 0;
     color: #000000;

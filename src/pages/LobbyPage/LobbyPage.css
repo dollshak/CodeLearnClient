@@ -4,12 +4,12 @@
     /* height:100vh; */
     height: 100%;
     width:100% ; 
-    background-color: rgb(29, 19, 19);
+    background-color:  rgb(255, 222, 222);
 }
 
 .lobby_container{
     display: flex;
-    background-color: rgb(255, 187, 187);
+    background-color:  rgb(255, 222, 222);
     flex-direction: column;
     justify-content: center;
     align-items: center;

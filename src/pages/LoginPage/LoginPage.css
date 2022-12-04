@@ -11,7 +11,7 @@
 
 .login_contianer{
     display: flex;
-    background-color: rgb(255, 187, 187);
+    background-color: rgb(255, 222, 222);
     flex-direction: column;
     justify-content: center;
     align-items: center;

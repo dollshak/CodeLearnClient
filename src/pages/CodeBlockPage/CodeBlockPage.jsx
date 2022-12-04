@@ -87,29 +87,24 @@ const CodeBlockPage = () => {
     sendCodeToMentor(text);
   };
 
-  const highlight = () => {
-    document.querySelectorAll("div.code").forEach((el) => {
-      // then highlight each
-      hljs.highlightElement(el);
-    });
-  };
-
   return (
     <div className="code_block_page">
       <div className="code_clock_container">
         <h1 className="code_block_name">{codeBlockTitle}</h1>
-        <textarea
-          id="editing"
-          hidden={isStudent === "false"}
-          spellCheck="false"
-          value={textBox}
-          className="text_area"
-          onChange={(ev) =>
-            isStudent === "true" && handleChange(ev.target.value)
-          }
-        ></textarea>
+        <div className="text_area_contaier">
+          <textarea
+            id="editing"
+            hidden={isStudent === "false"}
+            spellCheck="false"
+            value={textBox}
+            className="text_area"
+            onChange={(ev) =>
+              isStudent === "true" && handleChange(ev.target.value)
+            }
+          ></textarea>
+        </div>
 
-        <div>
+        <div className="highlight" id="highlighting">
           <Highlight className="javascript">{textBox}</Highlight>
         </div>
       </div>

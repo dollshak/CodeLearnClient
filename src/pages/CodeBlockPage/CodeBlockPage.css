@@ -8,57 +8,83 @@
 
 .code_clock_container{
     display: flex;
-    background-color: rgb(255, 187, 187);
+    background-color:  rgb(255, 222, 222);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
 .code_block_name{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.input_container{
+/* .input_container{
     display: flex;
     flex-direction: column;
-}
-/* editing
-.text_area{ 
+} */
 
-    margin: 10px;
-    padding: 10px;
-    border: 0;
-    width: calc(100% - 32px);
-    height: 150px;
-    font-size: 15pt;
-    font-family: monospace;
-    line-height: 20pt;
+/* .text_area{ */
+    /* width: 178px;
+    line-height: 15pt; */
+
+    /*comment*/
+    /* text-align: justify;
+    -moz-text-align-last: center; 
+    text-align-last: center; */
+/* } */
+
+/* .highlight{
+    text-align: left;
+} */
+
+/* #editing {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 102px;
+    left: 478px;
+    border: 0;
     z-index: 1;
     color: transparent;
     background: transparent;
-    caret-color: white;
+    caret-color: white; 
     overflow: auto;
-    white-space: nowrap;
-    resize: none;
-} */
 
-/* highlighting */
- /* .highlighed_text{
+  } */
+
+  /* .text_area_contaier{
+    align-items: center;
+  } */
+
+  #editing, #highlighting {
+    /* Both elements need the same text and space styling so they are directly on top of each other */
     margin: 10px;
     padding: 10px;
     border: 0;
     width: calc(100% - 32px);
     height: 150px;
+    overflow: auto;
+    white-space: nowrap;
+  }
+
+  #editing, #highlighting, #highlighting * {
+    /* Also add text styles to highlighting tokens */
     font-size: 15pt;
     font-family: monospace;
     line-height: 20pt;
-    position: absolute;
-    top: 0;
-    left: 0;
+  }
+
+  #highlighting{
+    text-align: left;
     z-index: 0;
-    overflow: auto;
-    white-space: nowrap;
-} */
+  }
+
+#editing {
+    border: 0;
+  position: absolute;
+  top: 128px;
+  left: 27px;
+  z-index: 1;
+  color: transparent;
+  background: transparent;
+  caret-color: white; 
+  resize: none;
+}

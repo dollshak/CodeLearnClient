@@ -48,4 +48,16 @@
     background: transparent;
     caret-color: white; 
     resize: none;
+    border: none;
+    outline: none;
+}
+
+.smile{
+  position: absolute;
+  width: 400px;
+  height: auto;
+  margin: auto;
+  padding: 10px;
+  top: 30px;
+  left: 330px;
 }

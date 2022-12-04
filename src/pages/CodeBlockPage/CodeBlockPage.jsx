@@ -14,9 +14,11 @@ const CodeBlockPage = () => {
   const [sessionUuid, setSessionUuid] = useState();
   const [student_login, setStudent_login] = useState();
   const [codeBlockTitle, setCodeBlockTitle] = useState("");
+  const [codeBlockSolution, setCodeBlockSolution] = useState("");
   const [textBox, setTextBox] = useState("");
   const [isStudent, setIsStudent] = useState("");
   const [first, setFirst] = useState("");
+  const [showSmile, setShowSmile] = useState(false);
 
   const api = Axios.create({
     baseURL: configData.production
@@ -65,6 +67,7 @@ const CodeBlockPage = () => {
         if (codeBlockId) {
           api.get("/codeBlock/".concat(codeBlockId)).then((response) => {
             setCodeBlockTitle(response?.data[0]?.title);
+            setCodeBlockSolution(response?.data[0]?.solution);
             if (first === "") {
               setTextBox(response?.data[0]?.code);
               setFirst("not first time");
@@ -80,6 +83,11 @@ const CodeBlockPage = () => {
   const handleChange = (text) => {
     setTextBox(text);
     sendCodeToMentor(text);
+    if (text === codeBlockSolution) {
+      setShowSmile(true);
+    } else {
+      setShowSmile(false);
+    }
   };
 
   return (
@@ -102,6 +110,12 @@ const CodeBlockPage = () => {
         <div className="highlight" id="highlighting">
           <Highlight className="javascript">{textBox}</Highlight>
         </div>
+      </div>
+
+      <div className="smile">
+        {showSmile && (
+          <img src={require("./coolSmile.png")} alt="" className="smile" />
+        )}
       </div>
     </div>
   );

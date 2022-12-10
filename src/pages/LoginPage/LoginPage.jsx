@@ -17,7 +17,6 @@ const LoginPage = () => {
   const api = Axios.create({
     baseURL: url,
   });
-  console.log(url);
 
   const navigate = useNavigate();
 
@@ -29,7 +28,7 @@ const LoginPage = () => {
     });
   };
 
-  React.useEffect(() => {}, [userDetails.username]);
+  // React.useEffect(() => {}, [userDetails.username]);
 
   useEffect(() => setUuid(searchParams.get("uuid")), [searchParams]);
 

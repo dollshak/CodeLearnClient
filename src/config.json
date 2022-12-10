@@ -1,5 +1,5 @@
 {
-    "production": true,
+    "production": false,
     "server_url_prod":"http://ec2-3-86-186-64.compute-1.amazonaws.com:80/api",
     "local_server_url": "http://localhost:5000",
     "socket_prod": "http://ec2-3-86-186-64.compute-1.amazonaws.com:4000/"
